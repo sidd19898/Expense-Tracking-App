@@ -9,7 +9,7 @@ const port = Number(process.env.PORT) || 3000;
 console.log("Starting server on port", port);
 
 
-const user = require("./model/user.js");
+const user = require("./routes/user.js");
 
 app.use("/expense/user",user);
 

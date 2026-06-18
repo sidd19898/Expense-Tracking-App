@@ -1,15 +1,29 @@
-require("dotenv").config();
-const JWT_SECRET = process.env.JWT_SECRET
-const User = require('../model/jswm/user.js');
-const router = express.Router()
+const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const User = require("../model/user");
+
+const router = express.Router();
+
+const JWT_SECRET = process.env.JWT_SECRET;
+const { signupSchema } = require("../zod");
+const { loginSchema } = require("../zod");
 
 // user signup
-
 router.post("/signup", async (req, res) => {
 
     try {
 
-        const { firstName, lastName, email, password } = req.body;
+        const result = signupSchema.safeParse(req.body);
+
+        if (!result.success) {
+            return res.status(400).json({
+                message: result.error.issues[0].message
+            });
+        }
+
+        const { firstName, lastName, email, password } = result.data;
 
         const existingUser = await User.findOne({ email });
 
@@ -33,8 +47,7 @@ router.post("/signup", async (req, res) => {
             user
         });
 
-    }
-    catch (err) {
+    } catch (err) {
 
         res.status(500).json({
             message: err.message
@@ -45,34 +58,34 @@ router.post("/signup", async (req, res) => {
 });
 
 // user login
-
 router.post("/login", async (req, res) => {
 
     try {
 
-        const { email, password } = req.body;
+        const result = loginSchema.safeParse(req.body);
+
+        if (!result.success) {
+            return res.status(400).json({
+                message: result.error.issues[0].message
+            });
+        }
+
+        const { email, password } = result.data;
 
         const user = await User.findOne({ email });
 
         if (!user) {
-
             return res.status(404).json({
                 message: "User not found"
             });
-
         }
 
-        const validPassword = await bcrypt.compare(
-            password,
-            user.password
-        );
+        const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
-
             return res.status(401).json({
-                message: "Invalid password"
+                message: "Invalid Password"
             });
-
         }
 
         const token = jwt.sign(
@@ -80,7 +93,7 @@ router.post("/login", async (req, res) => {
                 id: user._id,
                 email: user.email
             },
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             {
                 expiresIn: "7d"
             }
@@ -91,8 +104,7 @@ router.post("/login", async (req, res) => {
             token
         });
 
-    }
-    catch (err) {
+    } catch (err) {
 
         res.status(500).json({
             message: err.message
