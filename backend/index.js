@@ -10,9 +10,14 @@ console.log("Starting server on port", port);
 
 
 const user = require("./routes/user.js");
+const categoryRoutes = require("./routes/categoryRoutes.js");
+const transaction = require("./routes/Transaction.js")
+const reportRoutes = require("./routes/reportRoutes");
 
+app.use("/expense/report", reportRoutes);
 app.use("/expense/user",user);
-
+app.use("/expense/category", categoryRoutes);
+app.use("/expense/transaction",transaction)
 
 
 app.get('/', (req, res) => {

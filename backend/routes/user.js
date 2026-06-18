@@ -59,7 +59,7 @@ router.post("/signup", async (req, res) => {
 
 // user login
 router.post("/login", async (req, res) => {
-
+console.log("hitting")
     try {
 
         const result = loginSchema.safeParse(req.body);
