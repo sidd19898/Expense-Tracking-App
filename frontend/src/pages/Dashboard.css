@@ -1,0 +1,73 @@
+.dashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+@media(max-width:992px){
+
+.cards{
+
+grid-template-columns:
+
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.cards{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+.recent{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.charts{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+}
+
+@media(max-width:900px){
+
+.charts{
+
+grid-template-columns:1fr;
+
+}
+
+}

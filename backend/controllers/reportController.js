@@ -282,6 +282,8 @@ const monthlyComparison = async (req, res) => {
 
         });
 
+        
+
     }
 
     catch (err) {
@@ -296,12 +298,88 @@ const monthlyComparison = async (req, res) => {
 
 };
 
+
+const categoryAnalysis = async (req, res) => {
+
+    try {
+
+        const month = Number(req.query.month);
+        const year = Number(req.query.year);
+
+        const startDate = new Date(year, month - 1, 1);
+        const endDate = new Date(year, month, 1);
+
+        const userId = new mongoose.Types.ObjectId(req.user.id);
+
+        const result = await Transaction.aggregate([
+
+            {
+                $match: {
+                    userId,
+                    type: "Expense",
+                    date: {
+                        $gte: startDate,
+                        $lt: endDate
+                    }
+                }
+            },
+
+            {
+                $unwind: "$breakdown"
+            },
+
+            {
+                $group: {
+                    _id: "$breakdown.category",
+                    amount: {
+                        $sum: "$breakdown.amount"
+                    }
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "category"
+                }
+            },
+
+            {
+                $unwind: "$category"
+            },
+
+            {
+                $project: {
+                    _id: 0,
+                    category: "$category.name",
+                    amount: 1
+                }
+            }
+
+        ]);
+
+        res.json(result);
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+};
+
 module.exports = {
 
     dashboard,
 
     monthlyReport,
 
-    monthlyComparison
+    monthlyComparison,
+
+    categoryAnalysis
 
 };

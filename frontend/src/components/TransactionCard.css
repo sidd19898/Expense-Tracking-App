@@ -1,0 +1,41 @@
+.transaction-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px;
+
+    border-radius:10px;
+
+    background:white;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.transaction-card h3{
+
+    margin-bottom:5px;
+
+}
+
+.transaction-card p{
+
+    color:gray;
+
+}
+
+.income{
+
+    color:#16A34A;
+
+}
+
+.expense{
+
+    color:#DC2626;
+
+}

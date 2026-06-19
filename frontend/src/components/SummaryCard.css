@@ -1,0 +1,33 @@
+.summary-card{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+
+}
+
+.summary-card h3{
+
+    color:#64748B;
+
+    font-size:16px;
+
+}
+
+.summary-card h2{
+
+    font-size:28px;
+
+    color:#1E293B;
+
+}
