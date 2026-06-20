@@ -13,6 +13,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileCard({
 
@@ -24,13 +25,16 @@ export default function ProfileCard({
 
 }) {
 
-    const handleLogout = () => {
 
-        localStorage.removeItem("token");
+    const navigate = useNavigate();
 
-        window.location.href = "/login";
+const handleLogout = () => {
 
-    };
+    localStorage.removeItem("token");
+
+    navigate("/login", { replace: true });
+
+};
 
     return (
 

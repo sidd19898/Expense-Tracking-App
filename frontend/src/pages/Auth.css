@@ -1,0 +1,33 @@
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:linear-gradient(135deg,#1565C0,#42A5F5);
+
+}
+
+.auth-card{
+
+    width:100%;
+
+    max-width:500px;
+
+    border-radius:18px !important;
+
+    transition:.3s;
+
+}
+
+.auth-card:hover{
+
+    transform:translateY(-4px);
+
+}

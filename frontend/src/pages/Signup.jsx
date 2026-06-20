@@ -1,26 +1,47 @@
 import { useState } from "react";
 import { signup } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Signup(){
+import {
+    Box,
+    Paper,
+    Typography,
+    TextField,
+    Button,
+    InputAdornment,
+    IconButton
+} from "@mui/material";
+
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SavingsIcon from "@mui/icons-material/Savings";
+
+import "./Auth.css";
+
+export default function Signup() {
 
     const navigate = useNavigate();
 
-    const [form,setForm] = useState({
+    const [showPassword, setShowPassword] = useState(false);
 
-        firstName:"",
+    const [form, setForm] = useState({
 
-        lastName:"",
+        firstName: "",
 
-        email:"",
+        lastName: "",
 
-        password:""
+        email: "",
+
+        password: ""
 
     });
 
-    const handleSignup = async()=>{
+    const handleSignup = async () => {
 
-        try{
+        try {
 
             await signup(form);
 
@@ -30,7 +51,7 @@ export default function Signup(){
 
         }
 
-        catch(err){
+        catch (err) {
 
             alert(
 
@@ -42,51 +63,360 @@ export default function Signup(){
 
         }
 
-    }
+    };
 
-    return(
+    const handleChange = (e) => {
 
-        <div>
+        setForm({
 
-            <h1>Signup</h1>
+            ...form,
 
-            <input
-                placeholder="First Name"
-                onChange={(e)=>setForm({...form,firstName:e.target.value})}
-            />
+            [e.target.name]: e.target.value
 
-            <br/><br/>
+        });
 
-            <input
-                placeholder="Last Name"
-                onChange={(e)=>setForm({...form,lastName:e.target.value})}
-            />
+    };
 
-            <br/><br/>
+    return (
 
-            <input
-                placeholder="Email"
-                onChange={(e)=>setForm({...form,email:e.target.value})}
-            />
+        <Box className="auth-page">
 
-            <br/><br/>
+            <Paper
 
-            <input
-                type="password"
-                placeholder="Password"
-                onChange={(e)=>setForm({...form,password:e.target.value})}
-            />
+                elevation={10}
 
-            <br/><br/>
+                className="auth-card"
 
-            <button onClick={handleSignup}>
+                sx={{
 
-                Signup
+                    p: 5,
 
-            </button>
+                    bgcolor: "white"
 
-        </div>
+                }}
 
-    )
+            >
+
+                <Box
+
+                    sx={{
+
+                        display: "flex",
+
+                        justifyContent: "center",
+
+                        alignItems: "center",
+
+                        gap: 2,
+
+                        mb: 1
+
+                    }}
+
+                >
+
+                    <SavingsIcon
+
+                        color="primary"
+
+                        sx={{
+
+                            fontSize: 48
+
+                        }}
+
+                    />
+
+                    <Typography
+
+                        sx={{
+
+                            fontSize: "2.2rem",
+
+                            fontWeight: 700,
+
+                            lineHeight: 1
+
+                        }}
+
+                    >
+
+                        Expense Tracker
+
+                    </Typography>
+
+                </Box>
+
+                <Typography
+
+                    align="center"
+
+                    color="text.secondary"
+
+                    sx={{ mb: 4 }}
+
+                >
+
+                    Create your account
+
+                </Typography>
+
+                <Box
+
+                    sx={{
+
+                        display: "flex",
+
+                        gap: 2
+
+                    }}
+
+                >
+
+                    <TextField
+
+                        fullWidth
+
+                        label="First Name"
+
+                        name="firstName"
+
+                        value={form.firstName}
+
+                        onChange={handleChange}
+
+                        margin="normal"
+
+                        InputProps={{
+
+                            startAdornment: (
+
+                                <InputAdornment position="start">
+
+                                    <PersonIcon color="action"/>
+
+                                </InputAdornment>
+
+                            )
+
+                        }}
+
+                    />
+
+                    <TextField
+
+                        fullWidth
+
+                        label="Last Name"
+
+                        name="lastName"
+
+                        value={form.lastName}
+
+                        onChange={handleChange}
+
+                        margin="normal"
+
+                        InputProps={{
+
+                            startAdornment: (
+
+                                <InputAdornment position="start">
+
+                                    <PersonIcon color="action"/>
+
+                                </InputAdornment>
+
+                            )
+
+                        }}
+
+                    />
+
+                </Box>
+
+                <TextField
+
+                    fullWidth
+
+                    label="Email"
+
+                    name="email"
+
+                    value={form.email}
+
+                    onChange={handleChange}
+
+                    margin="normal"
+
+                    InputProps={{
+
+                        startAdornment: (
+
+                            <InputAdornment position="start">
+
+                                <EmailIcon color="action"/>
+
+                            </InputAdornment>
+
+                        )
+
+                    }}
+
+                />
+
+                <TextField
+
+                    fullWidth
+
+                    type={
+
+                        showPassword
+
+                            ?
+
+                            "text"
+
+                            :
+
+                            "password"
+
+                    }
+
+                    label="Password"
+
+                    name="password"
+
+                    value={form.password}
+
+                    onChange={handleChange}
+
+                    margin="normal"
+
+                    InputProps={{
+
+                        startAdornment: (
+
+                            <InputAdornment position="start">
+
+                                <LockIcon color="action"/>
+
+                            </InputAdornment>
+
+                        ),
+
+                        endAdornment: (
+
+                            <InputAdornment position="end">
+
+                                <IconButton
+
+                                    onClick={()=>
+
+                                        setShowPassword(
+
+                                            !showPassword
+
+                                        )
+
+                                    }
+
+                                >
+
+                                    {
+
+                                        showPassword
+
+                                        ?
+
+                                        <VisibilityOff/>
+
+                                        :
+
+                                        <Visibility/>
+
+                                    }
+
+                                </IconButton>
+
+                            </InputAdornment>
+
+                        )
+
+                    }}
+
+                />
+
+                <Button
+
+                    fullWidth
+
+                    variant="contained"
+
+                    size="large"
+
+                    sx={{
+
+                        mt:3,
+
+                        py:1.5,
+
+                        borderRadius:2,
+
+                        textTransform:"none",
+
+                        fontWeight:600
+
+                    }}
+
+                    onClick={handleSignup}
+
+                >
+
+                    Create Account
+
+                </Button>
+
+                <Typography
+
+                    align="center"
+
+                    sx={{
+
+                        mt:3,
+
+                        color:"text.secondary"
+
+                    }}
+
+                >
+
+                    Already have an account?{" "}
+
+                    <Link
+
+                        to="/"
+
+                        style={{
+
+                            textDecoration:"none",
+
+                            fontWeight:600
+
+                        }}
+
+                    >
+
+                        Login
+
+                    </Link>
+
+                </Typography>
+
+            </Paper>
+
+        </Box>
+
+    );
 
 }

@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Navigate
+} from "react-router-dom";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -11,62 +16,107 @@ import Profile from "./pages/Profile";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-function App(){
+function App() {
 
-    return(
+    return (
 
         <BrowserRouter>
 
             <Routes>
 
+                {/* Redirect root to login */}
+
                 <Route
+
                     path="/"
-                    element={<Login/>}
+
+                    element={<Navigate to="/login" replace />}
+
+                />
+
+                {/* Public Routes */}
+
+                <Route
+
+                    path="/login"
+
+                    element={<Login />}
+
                 />
 
                 <Route
+
                     path="/signup"
-                    element={<Signup/>}
+
+                    element={<Signup />}
+
                 />
 
-                <Route element={<ProtectedRoute/>}>
+                {/* Protected Routes */}
 
-                    <Route element={<MainLayout/>}>
+                <Route element={<ProtectedRoute />}>
+
+                    <Route element={<MainLayout />}>
 
                         <Route
+
                             path="/dashboard"
-                            element={<Dashboard/>}
+
+                            element={<Dashboard />}
+
                         />
 
                         <Route
+
                             path="/transactions"
-                            element={<Transactions/>}
+
+                            element={<Transactions />}
+
                         />
 
                         <Route
+
                             path="/categories"
-                            element={<Categories/>}
+
+                            element={<Categories />}
+
                         />
 
                         <Route
+
                             path="/reports"
-                            element={<Reports/>}
+
+                            element={<Reports />}
+
                         />
 
                         <Route
+
                             path="/profile"
-                            element={<Profile/>}
+
+                            element={<Profile />}
+
                         />
 
                     </Route>
 
                 </Route>
 
+                {/* Unknown Routes */}
+
+                <Route
+
+                    path="*"
+
+                    element={<Navigate to="/login" replace />}
+
+                />
+
             </Routes>
 
         </BrowserRouter>
 
-    )
+    );
 
 }
 

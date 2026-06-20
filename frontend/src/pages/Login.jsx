@@ -1,18 +1,38 @@
 import { useState } from "react";
 import { login } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Login(){
+import {
+    Box,
+    Paper,
+    Typography,
+    TextField,
+    Button,
+    InputAdornment,
+    IconButton
+} from "@mui/material";
+
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SavingsIcon from "@mui/icons-material/Savings";
+
+import "./Auth.css";
+
+export default function Login() {
 
     const navigate = useNavigate();
 
-    const [email,setEmail] = useState("");
+    const [email, setEmail] = useState("");
 
-    const [password,setPassword] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleLogin = async()=>{
+    const [showPassword, setShowPassword] = useState(false);
 
-        try{
+    const handleLogin = async () => {
+
+        try {
 
             const response = await login({
 
@@ -34,7 +54,7 @@ export default function Login(){
 
         }
 
-        catch(err){
+        catch (err) {
 
             alert(
 
@@ -46,48 +66,310 @@ export default function Login(){
 
         }
 
-    }
+    };
 
-    return(
+    return (
 
-        <div>
+        <Box className="auth-page">
 
-            <h1>Login</h1>
+            <Paper
 
-            <input
+                elevation={10}
 
-                placeholder="Email"
+                className="auth-card"
 
-                value={email}
+                sx={{
 
-                onChange={(e)=>setEmail(e.target.value)}
+                    p: 5,
 
-            />
+                    bgcolor: "white"
 
-            <br/><br/>
+                }}
 
-            <input
+            >
 
-                type="password"
+                {/* Logo */}
 
-                placeholder="Password"
+                <Box
 
-                value={password}
+                    sx={{
 
-                onChange={(e)=>setPassword(e.target.value)}
+                        display: "flex",
 
-            />
+                        justifyContent: "center",
 
-            <br/><br/>
+                        alignItems: "center",
 
-            <button onClick={handleLogin}>
+                        gap: 2,
 
-                Login
+                        mb: 1
 
-            </button>
+                    }}
 
-        </div>
+                >
 
-    )
+                    <SavingsIcon
+
+                        color="primary"
+
+                        sx={{
+
+                            fontSize: 48
+
+                        }}
+
+                    />
+
+                    <Typography
+
+                        sx={{
+
+                            fontSize: "2.2rem",
+
+                            fontWeight: 700,
+
+                            lineHeight: 1
+
+                        }}
+
+                    >
+
+                        Expense Tracker
+
+                    </Typography>
+
+                </Box>
+
+                <Typography
+
+                    align="center"
+
+                    color="text.secondary"
+
+                    sx={{
+
+                        mb: 4
+
+                    }}
+
+                >
+
+                    Sign in to continue
+
+                </Typography>
+
+                <TextField
+
+                    fullWidth
+
+                    label="Email"
+
+                    value={email}
+
+                    onChange={(e) =>
+
+                        setEmail(
+
+                            e.target.value
+
+                        )
+
+                    }
+
+                    margin="normal"
+
+                    sx={{
+
+                        "& .MuiOutlinedInput-root": {
+
+                            borderRadius: 2
+
+                        }
+
+                    }}
+
+                    InputProps={{
+
+                        startAdornment: (
+
+                            <InputAdornment position="start">
+
+                                <EmailIcon color="action" />
+
+                            </InputAdornment>
+
+                        )
+
+                    }}
+
+                />
+
+                <TextField
+
+                    fullWidth
+
+                    type={
+
+                        showPassword
+
+                            ? "text"
+
+                            : "password"
+
+                    }
+
+                    label="Password"
+
+                    value={password}
+
+                    onChange={(e) =>
+
+                        setPassword(
+
+                            e.target.value
+
+                        )
+
+                    }
+
+                    margin="normal"
+
+                    sx={{
+
+                        "& .MuiOutlinedInput-root": {
+
+                            borderRadius: 2
+
+                        }
+
+                    }}
+
+                    InputProps={{
+
+                        startAdornment: (
+
+                            <InputAdornment position="start">
+
+                                <LockIcon color="action" />
+
+                            </InputAdornment>
+
+                        ),
+
+                        endAdornment: (
+
+                            <InputAdornment position="end">
+
+                                <IconButton
+
+                                    onClick={() =>
+
+                                        setShowPassword(
+
+                                            !showPassword
+
+                                        )
+
+                                    }
+
+                                >
+
+                                    {
+
+                                        showPassword
+
+                                            ?
+
+                                            <VisibilityOff />
+
+                                            :
+
+                                            <Visibility />
+
+                                    }
+
+                                </IconButton>
+
+                            </InputAdornment>
+
+                        )
+
+                    }}
+
+                />
+
+                <Button
+
+                    fullWidth
+
+                    variant="contained"
+
+                    size="large"
+
+                    sx={{
+
+                        mt: 3,
+
+                        py: 1.5,
+
+                        borderRadius: 2,
+
+                        fontWeight: 600,
+
+                        fontSize: "1rem",
+
+                        textTransform: "none"
+
+                    }}
+
+                    onClick={handleLogin}
+
+                >
+
+                    Login
+
+                </Button>
+
+                <Typography
+
+                    align="center"
+
+                    sx={{
+
+                        mt: 3,
+
+                        color: "text.secondary"
+
+                    }}
+
+                >
+
+                    Don't have an account?{" "}
+
+                    <Link
+
+                        to="/signup"
+
+                        style={{
+
+                            textDecoration: "none",
+
+                            fontWeight: 600
+
+                        }}
+
+                    >
+
+                        Sign Up
+
+                    </Link>
+
+                </Typography>
+
+            </Paper>
+
+        </Box>
+
+    );
 
 }
