@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
 
-    baseURL: "http://localhost:3000/expense"
+    baseURL: "https://expense-tracking-app-7gh4.onrender.com/expense"
 
 });
 
