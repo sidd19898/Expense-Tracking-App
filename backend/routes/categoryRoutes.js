@@ -14,7 +14,7 @@ const {
 
     deleteCategory
 
-} = require("../controllers/categoryController");
+} = require("../controllers/categorycontroller");
 
 router.post("/", auth, createCategory);
 
