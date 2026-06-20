@@ -13,7 +13,9 @@ const user = require("./routes/user.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
 const transaction = require("./routes/Transaction.js")
 const reportRoutes = require("./routes/reportRoutes");
+const profileRoutes = require("./routes/profileRoutes.js")
 
+app.use("/expense/profile", profileRoutes);
 app.use("/expense/report", reportRoutes);
 app.use("/expense/user",user);
 app.use("/expense/category", categoryRoutes);

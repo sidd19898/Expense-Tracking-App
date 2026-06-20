@@ -6,16 +6,40 @@ export const getDashboard = async () => {
 
     return response.data;
 
-}
+};
+
+export const getMonthlyReport = async (month, year) => {
+
+    const response = await api.get(
+
+        `/report/monthly?month=${month}&year=${year}`
+
+    );
+
+    return response.data;
+
+};
+
+export const getMonthlyComparison = async (month, year) => {
+
+    const response = await api.get(
+
+        `/report/comparison?month=${month}&year=${year}`
+
+    );
+
+    return response.data;
+
+};
 
 export const getCategoryAnalysis = async (month, year) => {
 
     const response = await api.get(
-        `/report/category-analysis?month=${month}&year=${year}`
-    );
 
-    
+        `/report/category-analysis?month=${month}&year=${year}`
+
+    );
 
     return response.data;
 
-}
+};
