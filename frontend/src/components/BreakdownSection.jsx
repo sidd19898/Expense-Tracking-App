@@ -1,11 +1,4 @@
-import {
-    Button,
-    Typography,
-    Box
-} from "@mui/material";
-
-import AddIcon from "@mui/icons-material/Add";
-
+import { Button, Typography } from "@mui/material";
 import CategoryRow from "./CategoryRow";
 
 export default function BreakdownSection({
@@ -66,9 +59,89 @@ export default function BreakdownSection({
 
     const deleteCategory = (index) => {
 
-        const updated = form.breakdown.filter(
+        const updated = [...form.breakdown];
 
-            (_, i) => i !== index
+        updated.splice(index, 1);
+
+        setForm({
+
+            ...form,
+
+            breakdown: updated
+
+        });
+
+    };
+
+    const addItem = (parentIndex) => {
+
+        const updated = [...form.breakdown];
+
+        updated[parentIndex].items.push({
+
+            category: "",
+
+            amount: ""
+
+        });
+
+        setForm({
+
+            ...form,
+
+            breakdown: updated
+
+        });
+
+    };
+
+    const updateItem = (
+
+        parentIndex,
+
+        itemIndex,
+
+        field,
+
+        value
+
+    ) => {
+
+        const updated = [...form.breakdown];
+
+        updated[parentIndex].items[itemIndex] = {
+
+            ...updated[parentIndex].items[itemIndex],
+
+            [field]: value
+
+        };
+
+        setForm({
+
+            ...form,
+
+            breakdown: updated
+
+        });
+
+    };
+
+    const deleteItem = (
+
+        parentIndex,
+
+        itemIndex
+
+    ) => {
+
+        const updated = [...form.breakdown];
+
+        updated[parentIndex].items.splice(
+
+            itemIndex,
+
+            1
 
         );
 
@@ -84,40 +157,19 @@ export default function BreakdownSection({
 
     return (
 
-        <Box sx={{ mt: 4 }}>
+        <div style={{ marginTop: 35 }}>
 
             <Typography
+
                 variant="h6"
+
                 gutterBottom
+
             >
 
                 Expense Breakdown
 
             </Typography>
-
-            {
-
-                form.breakdown.length === 0 && (
-
-                    <Typography
-
-                        color="text.secondary"
-
-                        sx={{
-
-                            mb: 2
-
-                        }}
-
-                    >
-
-                        No categories added yet.
-
-                    </Typography>
-
-                )
-
-            }
 
             {
 
@@ -137,6 +189,12 @@ export default function BreakdownSection({
 
                         deleteCategory={deleteCategory}
 
+                        addItem={addItem}
+
+                        updateItem={updateItem}
+
+                        deleteItem={deleteItem}
+
                     />
 
                 ))
@@ -145,25 +203,19 @@ export default function BreakdownSection({
 
             <Button
 
-                variant="contained"
-
-                startIcon={<AddIcon />}
+                variant="outlined"
 
                 onClick={addCategory}
 
-                sx={{
-
-                    mt: 2
-
-                }}
+                sx={{ mt: 2 }}
 
             >
 
-                Add Category
+                + Add Category
 
             </Button>
 
-        </Box>
+        </div>
 
     );
 

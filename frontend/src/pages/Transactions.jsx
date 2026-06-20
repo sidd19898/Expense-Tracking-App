@@ -14,7 +14,8 @@ import TransactionModal from "../components/TransactionModal";
 import {
     getTransactions,
     createTransaction,
-    updateTransaction
+    updateTransaction,
+    deleteTransaction
 } from "../api/transactionApi";
 
 export default function Transactions() {
@@ -65,11 +66,41 @@ export default function Transactions() {
 
     }
 
-    function handleDelete(transaction) {
+    async function handleDelete(transaction) {
 
-        console.log(transaction);
+    const confirmDelete = window.confirm(
+
+        `Delete "${transaction.title}"?`
+
+    );
+
+    if (!confirmDelete) {
+
+        return;
 
     }
+
+    try {
+
+        await deleteTransaction(transaction._id);
+
+        await fetchTransactions();
+
+    }
+
+    catch (err) {
+
+        alert(
+
+            err.response?.data?.message ||
+
+            "Failed to delete transaction"
+
+        );
+
+    }
+
+}
 
     async function handleSave(transaction) {
 

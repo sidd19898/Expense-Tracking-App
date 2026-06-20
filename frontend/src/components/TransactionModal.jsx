@@ -139,6 +139,9 @@ export default function TransactionModal({
 }
 
     function handleSave() {
+        console.log(form);
+
+console.log(JSON.stringify(form, null, 2));
 
         onSave(form);
 

@@ -1,4 +1,5 @@
 import {
+
     Grid,
     FormControl,
     InputLabel,
@@ -6,6 +7,7 @@ import {
     MenuItem,
     TextField,
     IconButton
+
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,6 +15,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function ItemRow({
 
     item,
+
+    parentIndex,
 
     itemIndex,
 
@@ -32,11 +36,9 @@ export default function ItemRow({
 
             spacing={2}
 
-            alignItems="center"
-
             sx={{
 
-                mt: 2,
+                mt: 1,
 
                 ml: 3
 
@@ -63,6 +65,8 @@ export default function ItemRow({
                         onChange={(e) =>
 
                             updateItem(
+
+                                parentIndex,
 
                                 itemIndex,
 
@@ -108,9 +112,9 @@ export default function ItemRow({
 
                     fullWidth
 
-                    label="Amount"
-
                     type="number"
+
+                    label="Amount"
 
                     value={item.amount}
 
@@ -118,11 +122,13 @@ export default function ItemRow({
 
                         updateItem(
 
+                            parentIndex,
+
                             itemIndex,
 
                             "amount",
 
-                            e.target.value
+                            Number(e.target.value)
 
                         )
 
@@ -141,6 +147,8 @@ export default function ItemRow({
                     onClick={() =>
 
                         deleteItem(
+
+                            parentIndex,
 
                             itemIndex
 

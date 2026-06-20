@@ -75,15 +75,15 @@ export default function TransactionRow({
 
                 <IconButton
 
-                    color="error"
+    color="error"
 
-                    onClick={() => onDelete(transaction)}
+    onClick={() => onDelete(transaction)}
 
-                >
+>
 
-                    <DeleteIcon />
+    <DeleteIcon />
 
-                </IconButton>
+</IconButton>
 
             </TableCell>
 

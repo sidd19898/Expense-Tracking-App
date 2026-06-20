@@ -1,4 +1,5 @@
 import {
+
     Grid,
     Paper,
     FormControl,
@@ -8,12 +9,11 @@ import {
     TextField,
     Button,
     IconButton,
-    Typography,
-    Box
+    Typography
+
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 
 import ItemRow from "./ItemRow";
 
@@ -23,87 +23,16 @@ export default function CategoryRow({
     index,
     categories,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    addItem,
+    updateItem,
+    deleteItem
 
 }) {
 
-    const addItem = () => {
-
-        const updatedItems = [
-
-            ...item.items,
-
-            {
-
-                category: "",
-
-                amount: ""
-
-            }
-
-        ];
-
-        updateCategory(
-
-            index,
-
-            "items",
-
-            updatedItems
-
-        );
-
-    };
-
-    const updateItem = (itemIndex, field, value) => {
-
-        const updatedItems = [...item.items];
-
-        updatedItems[itemIndex] = {
-
-            ...updatedItems[itemIndex],
-
-            [field]: value
-
-        };
-
-        updateCategory(
-
-            index,
-
-            "items",
-
-            updatedItems
-
-        );
-
-    };
-
-    const deleteItem = (itemIndex) => {
-
-        const updatedItems = item.items.filter(
-
-            (_, i) => i !== itemIndex
-
-        );
-
-        updateCategory(
-
-            index,
-
-            "items",
-
-            updatedItems
-
-        );
-
-    };
-
     const childCategories = categories.filter(
 
-        cat =>
-
-            cat.parentCategory?._id === item.category
+        cat => cat.parentCategory?._id === item.category
 
     );
 
@@ -117,25 +46,15 @@ export default function CategoryRow({
 
                 p: 2,
 
-                mb: 2,
-
-                borderRadius: 2
+                mb: 2
 
             }}
 
         >
 
-            <Grid
+            <Grid container spacing={2} alignItems="center">
 
-                container
-
-                spacing={2}
-
-                alignItems="center"
-
-            >
-
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} md={4}>
 
                     <FormControl fullWidth>
 
@@ -197,7 +116,7 @@ export default function CategoryRow({
 
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
 
                     <TextField
 
@@ -217,7 +136,7 @@ export default function CategoryRow({
 
                                 "amount",
 
-                                e.target.value
+                                Number(e.target.value)
 
                             )
 
@@ -227,33 +146,33 @@ export default function CategoryRow({
 
                 </Grid>
 
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={3}>
 
                     <Button
 
                         variant="outlined"
 
-                        startIcon={<AddIcon />}
-
-                        onClick={addItem}
-
-                        fullWidth
+                        onClick={() => addItem(index)}
 
                     >
 
-                        Item
+                        + Item
 
                     </Button>
 
                 </Grid>
 
-                <Grid item xs={6} md={1}>
+                <Grid item xs={6} md={2}>
 
                     <IconButton
 
                         color="error"
 
-                        onClick={() => deleteCategory(index)}
+                        onClick={() =>
+
+                            deleteCategory(index)
+
+                        }
 
                     >
 
@@ -267,23 +186,17 @@ export default function CategoryRow({
 
             {
 
-                childCategories.length > 0 && (
+                item.items.length > 0 && (
 
-                    <Box sx={{ mt: 3 }}>
+                    <Typography
 
-                        <Typography
+                        sx={{ mt: 2, mb: 1 }}
 
-                            variant="subtitle2"
+                    >
 
-                            gutterBottom
+                        Items
 
-                        >
-
-                            Items
-
-                        </Typography>
-
-                    </Box>
+                    </Typography>
 
                 )
 
@@ -291,13 +204,15 @@ export default function CategoryRow({
 
             {
 
-                item.items.map((child, itemIndex) => (
+                item.items.map((subItem, itemIndex) => (
 
                     <ItemRow
 
                         key={itemIndex}
 
-                        item={child}
+                        item={subItem}
+
+                        parentIndex={index}
 
                         itemIndex={itemIndex}
 
