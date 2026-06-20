@@ -6,7 +6,7 @@ const createCategory = async (req, res) => {
     try {
 
         const result = createCategorySchema.safeParse(req.body);
-
+        
         if (!result.success) {
             return res.status(400).json({
                 message: result.error.issues[0].message
@@ -14,6 +14,26 @@ const createCategory = async (req, res) => {
         }
 
         const { name, parentCategory } = result.data;
+
+        const exists = await Category.findOne({
+
+    name,
+
+    userId: req.user.id,
+
+    parentCategory: parentCategory || null
+
+});
+
+if (exists) {
+
+    return res.status(400).json({
+
+        message: "Category already exists"
+
+    });
+
+}
 
         const category = await Category.create({
 

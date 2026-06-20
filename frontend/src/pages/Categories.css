@@ -1,0 +1,39 @@
+.categories-page{
+
+    padding:30px;
+
+}
+
+.categories-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.categories-header button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.categories-header button:hover{
+
+    background:#1d4ed8;
+
+}

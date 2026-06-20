@@ -3,7 +3,7 @@ const { z } = require("zod");
 const createCategorySchema = z.object({
     name: z.string().min(1, "Category name is required"),
 
-    parentCategory: z.string().optional()
+    parentCategory: z.string().nullable().optional()
 });
 
 module.exports = {
