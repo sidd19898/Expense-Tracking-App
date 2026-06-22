@@ -178,6 +178,27 @@ export default function Categories() {
                     variant="contained"
 
                     startIcon={<AddIcon />}
+                     
+
+                     sx={{
+
+        minWidth:{
+
+            xs:"100%",
+
+            sm:"220px"
+
+        },
+
+        mt:{
+
+            xs:2,
+
+            sm:0
+
+        }
+
+    }}
 
                     onClick={() => {
 

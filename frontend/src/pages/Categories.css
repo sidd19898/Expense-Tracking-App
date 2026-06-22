@@ -1,8 +1,7 @@
 .categories-page{
-
     padding:30px;
-
 }
+
 
 .categories-header{
 
@@ -12,7 +11,9 @@
 
     align-items:center;
 
-    margin-bottom:30px;
+    gap:20px;
+
+    margin-bottom:25px;
 
 }
 
@@ -35,5 +36,26 @@
 .categories-header button:hover{
 
     background:#1d4ed8;
+
+}
+
+@media(max-width:600px){
+
+    .categories-header{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .categories-header button{
+
+        width:100%;
+
+    }
+    .categories-page{
+    padding:0;
+}
 
 }

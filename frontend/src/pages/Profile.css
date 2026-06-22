@@ -23,3 +23,11 @@
     color:#666;
 
 }
+
+@media(max-width:600px){
+.profile-page{
+
+    padding:0;
+
+}
+}
