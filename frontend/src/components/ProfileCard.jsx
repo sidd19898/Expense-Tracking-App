@@ -153,11 +153,12 @@ const handleLogout = () => {
                 <Divider sx={{ my: 3 }} />
 
                 <Stack
-                    direction="row"
-                    spacing={2}
-                    justifyContent="center"
-                    flexWrap="wrap"
-                >
+    direction={{
+        xs: "column",
+        sm: "row"
+    }}
+    spacing={2}
+>
 
                     <Button
 
