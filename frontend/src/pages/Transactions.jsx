@@ -190,45 +190,67 @@ export default function Transactions() {
 
         <div className="transactions-page">
 
-            <div className="transactions-header">
+<div className="transactions-header">
 
-                <div>
+    <div>
 
-                    <h1>
+        <h1>
 
-                        Transactions
+            Transactions
 
-                    </h1>
+        </h1>
 
-                    <p>
+        <p>
 
-                        Manage all your transactions
+            Manage all your transactions
 
-                    </p>
+        </p>
 
-                </div>
+    </div>
 
-                <Button
+    <Button
 
-                    variant="contained"
+        variant="contained"
 
-                    startIcon={<AddIcon />}
+        startIcon={<AddIcon />}
 
-                    onClick={() => {
+        fullWidth={window.innerWidth < 600}
 
-                        setEditingTransaction(null);
+        sx={{
 
-                        setOpen(true);
+            minWidth: {
 
-                    }}
+                xs: "100%",
 
-                >
+                sm: "220px"
 
-                    Add Transaction
+            },
 
-                </Button>
+            mt: {
 
-            </div>
+                xs: 2,
+
+                sm: 0
+
+            }
+
+        }}
+
+        onClick={() => {
+
+            setEditingTransaction(null);
+
+            setOpen(true);
+
+        }}
+
+    >
+
+        Add Transaction
+
+    </Button>
+
+</div>
 
             {
 

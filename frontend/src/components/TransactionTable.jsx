@@ -22,9 +22,27 @@ export default function TransactionTable({
 
     return (
 
-        <TableContainer component={Paper}>
+        <TableContainer
 
-            <Table>
+            component={Paper}
+
+            sx={{
+
+                overflowX: "auto"
+
+            }}
+
+        >
+
+            <Table
+
+                sx={{
+
+                    minWidth: 700
+
+                }}
+
+            >
 
                 <TableHead>
 
